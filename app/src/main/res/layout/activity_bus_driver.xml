@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Switch
+        <android.support.v7.widget.SwitchCompat
             android:id="@+id/broadcast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -17,30 +17,32 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:checked="true"
-            android:text="@string/broadcast_my_location"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+            android:text="@string/broadcast_my_location" />
 
-        <EditText
-            android:id="@+id/message_field"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/tl1"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_below="@id/broadcast"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:hint="@string/a_short_message_to_broadcast"
-            android:inputType="textShortMessage" />
+            android:layout_marginTop="@dimen/fui_field_padding_vert"
+            android:hint="@string/a_short_message_to_broadcast">
 
-        <Button
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/message_field"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/button_broadcast_msg"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_below="@id/message_field"
+            android:layout_below="@id/tl1"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/button_primary"
             android:drawableEnd="@drawable/ic_cast"
             android:paddingEnd="@dimen/padding_large"
             android:paddingStart="@dimen/padding_large"

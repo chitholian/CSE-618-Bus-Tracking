@@ -14,7 +14,7 @@ open class PendingBusesFragment : ListFragment() {
         title = getString(R.string.pending_buses)
 
         val buses = ArrayList<Bus>()
-        for (i in 1L..15L)
+        for (i in 1..5)
             Bus().also { b ->
                 b.uid = "uid_$i"
                 b.name = "Bus Name $i"

@@ -17,7 +17,7 @@ class TeacherDetailsActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_teacher_details)
         val buses = ArrayList<Bus>()
-        for (i in 1L..15L) {
+        for (i in 1..8) {
             val bus = Bus()
             bus.uid = "uid_$i"
             bus.name = "Bus Name $i"

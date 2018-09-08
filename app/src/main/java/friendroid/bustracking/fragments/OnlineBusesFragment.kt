@@ -15,7 +15,7 @@ open class OnlineBusesFragment : ListFragment() {
         title = getString(R.string.online_buses)
 
         val buses = ArrayList<OnlineBus>()
-        for (i in 1L..15L)
+        for (i in 1..8)
             OnlineBus().also { b ->
                 b.uid = "uid_$i"
                 b.name = "Bus Name $i"

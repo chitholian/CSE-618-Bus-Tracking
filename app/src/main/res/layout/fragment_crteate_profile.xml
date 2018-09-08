@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/next_button"
+        style="@style/Base.Widget.AppCompat.Button.Colored"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/button_primary"
         android:drawableEnd="@drawable/ic_next"
         android:paddingEnd="@dimen/padding_medium"
         android:paddingStart="@dimen/padding_medium"
@@ -51,7 +51,7 @@
                         app:civ_border_color="@color/colorPrimaryDark"
                         app:civ_border_width="@dimen/profile_pic_border_width" />
 
-                    <TextView
+                    <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/contact"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -62,31 +62,28 @@
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
-            <TextView
-                android:id="@+id/name_label"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/ti1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/cardview"
-                android:layout_marginStart="@dimen/padding_small"
-                android:layout_marginTop="10dp"
-                android:labelFor="@+id/name_field"
-                android:text="@string/profile_name"
-                android:textColor="@color/colorAccent" />
+                android:layout_margin="@dimen/padding_small"
+                android:hint="Full Profile Name">
 
-            <EditText
-                android:id="@id/name_field"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/name_label"
-                android:layout_marginStart="@dimen/padding_small"
-                android:inputType="textPersonName"
-                android:text="Full Profile Name" />
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/name_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:maxLength="32"
+                    android:text="Full Profile Name" />
+            </android.support.design.widget.TextInputLayout>
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/tv1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/name_field"
+                android:layout_below="@id/ti1"
                 android:layout_marginTop="@dimen/padding_medium"
                 android:gravity="center"
                 android:text="@string/sign_up_as_a"
@@ -99,7 +96,7 @@
                 android:layout_below="@id/tv1"
                 android:layout_marginStart="8dp">
 
-                <RadioButton
+                <android.support.v7.widget.AppCompatRadioButton
                     android:id="@+id/teacher"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -107,7 +104,7 @@
                     android:checked="true"
                     android:text="@string/teacher" />
 
-                <RadioButton
+                <android.support.v7.widget.AppCompatRadioButton
                     android:id="@+id/bus_driver"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -115,18 +112,21 @@
                     android:text="@string/bus_driver" />
             </RadioGroup>
 
-
-            <EditText
-                android:id="@+id/reg_key"
-                android:layout_width="wrap_content"
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/rg1"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="8dp"
-                android:ems="10"
-                android:hint="@string/reg_key"
-                android:inputType="textPassword"
-                android:text="reg_key_value" />
+                android:layout_margin="@dimen/padding_small"
+                android:hint="@string/reg_key">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/reg_key"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:maxLength="100"
+                    android:text="reg_key_value" />
+            </android.support.design.widget.TextInputLayout>
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

@@ -13,7 +13,7 @@ class TeacherListFragment : ListFragment() {
         title = getString(R.string.all_teachers)
 
         val teachers = ArrayList<Teacher>()
-        for (i in 1L..15L)
+        for (i in 1..50)
             Teacher().also {
                 it.uid = "uid_$i"
                 it.identity = "email_$i@gmail.com"

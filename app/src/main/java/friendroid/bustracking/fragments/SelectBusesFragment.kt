@@ -25,7 +25,7 @@ class SelectBusesFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         v = inflater.inflate(R.layout.fragment_select_buses, container, false)
         val buses = ArrayList<Bus>()
-        for (i in 1L..15L)
+        for (i in 1..10)
             Bus().also { b ->
                 b.uid = "uid_$i"
                 b.name = "Bus Name $i"

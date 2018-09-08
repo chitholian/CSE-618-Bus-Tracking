@@ -35,7 +35,7 @@
                         app:civ_border_color="@color/cardview_shadow_start_color"
                         app:civ_border_width="@dimen/profile_pic_border_width" />
 
-                    <TextView
+                    <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textColor="@android:color/white" />
 
-                    <TextView
+                    <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -75,7 +75,6 @@
         android:clickable="true"
         android:focusable="true"
         android:tint="@android:color/background_light"
-        app:backgroundTint="@color/colorPrimary"
         app:fabSize="normal"
         app:srcCompat="@drawable/ic_content_save" />
 </RelativeLayout>

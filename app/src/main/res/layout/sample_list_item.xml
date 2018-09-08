@@ -3,23 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/list_item_bg"
+    android:background="?attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true">
 
-    <TextView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="8dp"
         android:background="@drawable/round_bg"
-        android:gravity="center"
-        android:text="A"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@android:color/white"
-        android:textStyle="bold" />
+        android:gravity="fill"
+        android:src="@mipmap/ic_launcher_round" />
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/textName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,7 +26,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textStyle="bold" />
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/text2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,26 +35,26 @@
         android:layout_toEndOf="@id/image"
         android:text="Secondary Text" />
 
-    <ImageButton
+    <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/secondButton"
+        style="@style/Base.Widget.AppCompat.ActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_toStartOf="@id/deleteButton"
-        android:background="@android:color/transparent"
         android:contentDescription="@string/accept"
         android:padding="10dp"
         android:tint="@color/colorPrimary"
         android:visibility="gone"
         app:srcCompat="@drawable/ic_account_check" />
 
-    <ImageButton
+    <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/deleteButton"
+        style="@style/Base.Widget.AppCompat.ActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerInParent="true"
-        android:background="@android:color/transparent"
         android:contentDescription="@string/delete_this_item"
         android:padding="10dp"
         android:tint="@color/colorDanger"

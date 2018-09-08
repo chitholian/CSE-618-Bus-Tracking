@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
+    <android.support.v7.widget.AppCompatEditText
         android:id="@+id/reg_key_field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
