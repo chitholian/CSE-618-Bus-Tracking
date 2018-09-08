@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group>
+        <item
+            android:id="@+id/menu_online_buses"
+            android:icon="@drawable/ic_google_maps"
+            android:title="@string/online_buses" />
+        <item
+            android:id="@+id/menu_update_subscription"
+            android:icon="@drawable/ic_pencil"
+            android:title="@string/edit_subscription" />
+    </group>
+    <item android:title="@string/more_options">
+        <menu>
+            <item
+                android:id="@+id/menu_logout"
+                android:icon="@drawable/ic_logout"
+                android:title="@string/logout" />
+            <item
+                android:id="@+id/menu_about"
+                android:icon="@drawable/ic_info"
+                android:title="@string/about" />
+        </menu>
+    </item>
+</menu>

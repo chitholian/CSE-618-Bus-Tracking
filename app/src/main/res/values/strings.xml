@@ -1,0 +1,72 @@
+<resources>
+    <string name="facebook_application_id">1901478469937069</string>
+    <string name="fb_login_protocol_scheme">fb1901478469937069</string>
+
+    <string name="app_name">Bus Tracking</string>
+    <string name="online_buses">Online Buses</string>
+    <string name="all_buses">List of All Buses</string>
+    <string name="all_teachers">List of All Teachers</string>
+    <string name="pending_requests">Pending Requests</string>
+    <string name="change_reg_key">Change Reg-Key</string>
+    <string name="about">About</string>
+    <string name="logout">Logout</string>
+    <string name="more_options">More Options</string>
+    <string name="profile_name">Profile Name</string>
+    <string name="bus_driver">Bus Driver</string>
+    <string name="teacher">Teacher</string>
+    <string name="reg_key">Registration Key</string>
+    <string name="next">Next</string>
+    <string name="select_buses_to_subscribe">Select buses to subscribe</string>
+    <string name="sign_up_as_a">SignUp as a</string>
+    <string name="title_activity_teacher">TeacherActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Profile Name</string>
+    <string name="nav_header_subtitle">useremail@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_bus_driver">BusDriverActivity</string>
+    <string name="title_activity_transport_controller">TransportControllerActivity</string>
+    <string name="broadcast_my_location">Broadcast my location</string>
+    <string name="broadcast_message">Broadcast Message</string>
+    <string name="a_short_message_to_broadcast">A short message to broadcast</string>
+    <string name="broadcast">Broadcast</string>
+    <string name="broadcast_sent">Broadcast message sent</string>
+    <string name="ok">OK</string>
+    <string name="new_key">New registration key</string>
+    <string name="enter_reg_key">Please enter registration key</string>
+    <string name="enter_valid_name">Please enter a valid name</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm_logout">Are you sure to logout and exit ?</string>
+    <string name="enter_msg">Please enter message body</string>
+    <string name="edit_subscription">Update Subscription</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="press_again_to_exit">Double tap to exit</string>
+    <string name="wait_for_approval">Waiting for Approval</string>
+    <string name="subscribed_buses">Subscribed Buses</string>
+    <string name="take_pic_from">Take picture from</string>
+    <string name="about_app">About this app goes here</string>
+    <string name="key_changed">Key changed successfully!</string>
+    <string name="processing">Processing…</string>
+    <string name="delete_this_item">Delete this item</string>
+    <string name="confirm_delete">Are you sure to delete ?</string>
+    <string name="operation_successful">Operation Successful</string>
+    <string name="accept">Accept this item</string>
+    <string name="delete">Delete</string>
+    <string name="confirm_save">Confirm and save these info ?</string>
+
+    <string-array name="pic_options">
+        <item>Camera</item>
+        <item>Gallery</item>
+    </string-array>
+    <string name="title_activity_pending_request">Pending Requests</string>
+    <string name="pending_buses">Pending Buses</string>
+    <string name="pending_teachers">Pending Teachers</string>
+    <string name="chanel_name">Broadcast Message Notification</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="login_failed">Failed to login</string>
+    <string name="retry">Retry</string>
+    <string name="invalid_key">Invalid registration key</string>
+    <string name="op_failed">Operation Failed</string>
+
+</resources>

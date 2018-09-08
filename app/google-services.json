@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "121179278723",
+    "firebase_url": "https://cse-618-bus-tracking.firebaseio.com",
+    "project_id": "cse-618-bus-tracking",
+    "storage_bucket": "cse-618-bus-tracking.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121179278723:android:ee9a2cbdbcc61166",
+        "android_client_info": {
+          "package_name": "friendroid.bustracking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "121179278723-dtpo3ihqmk87oanbdg3j11q6si6drr61.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "friendroid.bustracking",
+            "certificate_hash": "40db119d48c12efe9c829534dca0262ba93e81ae"
+          }
+        },
+        {
+          "client_id": "121179278723-q22mpfd9hrca3qrj880a6gsu930956oi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "friendroid.bustracking",
+            "certificate_hash": "33843b2954f2fad0e8a89c9b1321924332678a95"
+          }
+        },
+        {
+          "client_id": "121179278723-059ihhd99e048jvvd8gt86314piiljmf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBF1oxKe6G91G4U9gkarcgvwkeq3JkapQM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "121179278723-059ihhd99e048jvvd8gt86314piiljmf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
