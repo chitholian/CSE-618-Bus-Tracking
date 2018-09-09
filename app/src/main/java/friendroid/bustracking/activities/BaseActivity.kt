@@ -10,12 +10,10 @@ import com.firebase.ui.auth.AuthUI
 import friendroid.bustracking.R
 import friendroid.bustracking.utils.confirm
 
-open class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
     private var lastBackPressedAt = 0L
     private val LOGIN_REQ_CODE = 111
     private var t: Toast? = null
-    private var progressDialog: AlertDialog? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         t = Toast.makeText(this, R.string.press_again_to_exit, Toast.LENGTH_SHORT)
@@ -32,9 +30,7 @@ open class BaseActivity : AppCompatActivity() {
 
     fun logout() {
         confirm(this, R.string.confirm_logout) {
-            showProcessing()
             AuthUI.getInstance().signOut(this)
-            hideProcessing()
             finish()
         }
     }
@@ -100,27 +96,9 @@ open class BaseActivity : AppCompatActivity() {
         }*/
     }
 
-    fun showProcessing() {
-        if (progressDialog == null)
-            progressDialog = AlertDialog.Builder(this).setView(R.layout.progress).setCancelable(false).create()
-        progressDialog?.show()
-    }
-
-    fun hideProcessing() {
-        progressDialog?.hide()
-    }
-
-
     fun delayed(ms: Long = 1000, task: () -> Unit) {
-        showProcessing()
         Handler().postDelayed({
-            hideProcessing()
             task.invoke()
         }, ms)
-    }
-
-    override fun onDestroy() {
-        progressDialog?.dismiss()
-        super.onDestroy()
     }
 }

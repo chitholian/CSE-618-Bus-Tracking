@@ -77,4 +77,9 @@
         android:tint="@android:color/background_light"
         app:fabSize="normal"
         app:srcCompat="@drawable/ic_content_save" />
+
+    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+        android:id="@+id/progressBar"
+        style="@style/FirebaseUI.TopProgressBar"
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>

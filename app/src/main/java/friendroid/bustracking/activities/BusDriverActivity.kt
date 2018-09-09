@@ -2,6 +2,7 @@ package friendroid.bustracking.activities
 
 import android.app.PendingIntent
 import android.content.Intent
+import android.media.RingtoneManager
 import android.os.Bundle
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
@@ -32,22 +33,28 @@ class BusDriverActivity : BaseActivity() {
                     message_field.error = getString(R.string.enter_msg)
                     message_field.requestFocus()
                 } else {
+                    it.isEnabled = false
+                    progressBar.visibility = View.VISIBLE
                     delayed {
                         toast(getString(R.string.broadcast_sent))
 
                         // show demo notification.
                         val i = Intent(this, NotificationActionReceiver::class.java)
                         i.putExtra(EXTRA_NOTIFICATION_ID, 1)
-                        val builder = NotificationCompat.Builder(this, CHANEL_ID).setSmallIcon(R.drawable.ic_info)
+                        val builder = NotificationCompat.Builder(this, CHANEL_ID)
+                                .setSmallIcon(android.R.drawable.ic_dialog_email)
                                 .setContentTitle("Bus Number One")
                                 .setContentText(msg)
                                 .setStyle(NotificationCompat.BigTextStyle().bigText(msg))
                                 .setPriority(NotificationManagerCompat.IMPORTANCE_HIGH)
-                                .addAction(R.drawable.ic_alert, getString(R.string.dismiss),
+                                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                                .addAction(android.R.drawable.ic_notification_clear_all, getString(R.string.dismiss),
                                         PendingIntent.getBroadcast(this, 0, i, 0))
                         val manager: NotificationManagerCompat = NotificationManagerCompat.from(this)
 
                         manager.notify(1, builder.build())
+                        progressBar.visibility = View.INVISIBLE
+                        it.isEnabled = true
                     }
                 }
             }

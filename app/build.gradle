@@ -39,6 +39,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:16.0.1'
     implementation 'com.facebook.android:facebook-android-sdk:4.36.0'
     implementation 'com.firebaseui:firebase-ui-auth:4.1.0'
+    implementation 'me.zhanghai.android.materialprogressbar:library:1.4.2'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

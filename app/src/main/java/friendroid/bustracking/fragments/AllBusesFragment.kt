@@ -1,11 +1,13 @@
 package friendroid.bustracking.fragments
 
 import android.os.Bundle
+import android.view.View
 import friendroid.bustracking.R
 import friendroid.bustracking.activities.BaseActivity
 import friendroid.bustracking.adapters.SimpleBusAdapter
 import friendroid.bustracking.entities.Bus
 import friendroid.bustracking.utils.confirm
+import kotlinx.android.synthetic.main.fragment_list_holder.*
 
 
 open class AllBusesFragment : ListFragment() {
@@ -23,10 +25,12 @@ open class AllBusesFragment : ListFragment() {
         }
         mAdapter = SimpleBusAdapter(buses) { bus ->
             confirm(activity, R.string.confirm_delete) {
+                progressBar.visibility = View.VISIBLE
                 (activity as BaseActivity).apply {
                     delayed {
                         buses.remove(bus)
                         mAdapter?.notifyDataSetChanged()
+                        progressBar.visibility = View.INVISIBLE
                     }
                 }
             }

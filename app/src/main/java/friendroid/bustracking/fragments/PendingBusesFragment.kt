@@ -1,11 +1,13 @@
 package friendroid.bustracking.fragments
 
 import android.os.Bundle
+import android.view.View
 import friendroid.bustracking.R
 import friendroid.bustracking.activities.BaseActivity
 import friendroid.bustracking.adapters.PendingBusAdapter
 import friendroid.bustracking.entities.Bus
 import friendroid.bustracking.utils.confirm
+import kotlinx.android.synthetic.main.fragment_list_holder.*
 
 
 open class PendingBusesFragment : ListFragment() {
@@ -23,15 +25,19 @@ open class PendingBusesFragment : ListFragment() {
             }
         mAdapter = PendingBusAdapter(buses, { bus ->
             confirm(activity, R.string.confirm_delete) {
+                progressBar.visibility = View.VISIBLE
                 (activity as BaseActivity).delayed {
                     buses.remove(bus)
                     mAdapter?.notifyDataSetChanged()
+                    progressBar.visibility = View.INVISIBLE
                 }
             }
         }, { bus ->
+            progressBar.visibility = View.VISIBLE
             (activity as BaseActivity).delayed {
                 buses.remove(bus)
                 mAdapter?.notifyDataSetChanged()
+                progressBar.visibility = View.INVISIBLE
             }
         })
     }

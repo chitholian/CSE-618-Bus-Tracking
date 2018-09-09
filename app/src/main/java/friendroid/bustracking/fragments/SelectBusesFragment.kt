@@ -17,6 +17,7 @@ import friendroid.bustracking.activities.TeacherActivity
 import friendroid.bustracking.activities.TransportControllerActivity
 import friendroid.bustracking.adapters.SelectableBusAdapter
 import friendroid.bustracking.entities.Bus
+import kotlinx.android.synthetic.main.fragment_select_buses.*
 
 class SelectBusesFragment : Fragment() {
     private var v: View? = null
@@ -39,19 +40,25 @@ class SelectBusesFragment : Fragment() {
         }
 
         v?.findViewById<Button>(R.id.next_button)?.setOnClickListener {
+            it.isEnabled = false
+            progressBar.visibility = View.VISIBLE
             (activity as BaseActivity).delayed {
                 if (activity is TeacherActivity) {
                     (activity as HomeActivity).showOnlineBuses()
                 } else {
                     val options = arrayOf("Transport Controller", "Teacher")
-                    AlertDialog.Builder(activity!!).setTitle("Select Role").setItems(options) { _, which ->
-                        when (which) {
-                            0 -> startActivity(Intent(activity, TransportControllerActivity::class.java))
-                            1 -> startActivity(Intent(activity, TeacherActivity::class.java))
-                        }
-                        activity?.finish()
-                    }.create().show()
+                    activity?.apply {
+                        AlertDialog.Builder(activity!!).setTitle("Select Role").setItems(options) { _, which ->
+                            when (which) {
+                                0 -> startActivity(Intent(activity, TransportControllerActivity::class.java))
+                                1 -> startActivity(Intent(activity, TeacherActivity::class.java))
+                            }
+                            activity?.finish()
+                        }.create().show()
+                    }
                 }
+                progressBar?.visibility = View.INVISIBLE
+                it.isEnabled = true
             }
         }
         return v

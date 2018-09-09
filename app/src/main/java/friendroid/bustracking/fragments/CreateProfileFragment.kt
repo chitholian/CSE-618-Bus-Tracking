@@ -42,12 +42,16 @@ class CreateProfileFragment : Fragment() {
                 }
 
                 else -> {
+                    it.isEnabled = false
+                    progressBar.visibility = View.VISIBLE
                     (activity as BaseActivity).delayed {
                         if (teacher.isChecked) (activity as RegistrationActivity).showBusSelection()
                         else {
                             startActivity(Intent(activity, BusDriverActivity::class.java))
                             activity?.finish()
                         }
+                        progressBar.visibility = View.INVISIBLE
+                        it.isEnabled = true
                     }
                     /*cDatabaseRef.child("reg_key").addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(p0: DataSnapshot) {
