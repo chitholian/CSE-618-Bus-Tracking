@@ -68,5 +68,8 @@
     <string name="retry">Retry</string>
     <string name="invalid_key">Invalid registration key</string>
     <string name="op_failed">Operation Failed</string>
+    <string name="reject">Reject</string>
+    <string name="confirm_reject">Confirm reject this request ?</string>
+    <string name="confirm_delete_id">Are you sure to delete this account ?</string>
 
 </resources>

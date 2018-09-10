@@ -11,7 +11,7 @@ class TeacherListAdapter(private val items: List<Any>, private val listener: (it
         holder.view.apply {
             findViewById<TextView>(R.id.textName).text = teacher.name
             findViewById<TextView>(R.id.text2).text = teacher.identity
-            setOnClickListener { listener.invoke(teacher) }
+            setOnClickListener { listener.invoke(position) }
         }
     }
 }

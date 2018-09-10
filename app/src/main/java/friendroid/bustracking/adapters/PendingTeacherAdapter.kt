@@ -7,7 +7,7 @@ import android.widget.TextView
 import friendroid.bustracking.R
 import friendroid.bustracking.entities.Teacher
 
-class PendingTeacherAdapter(private val items: List<Any>, private val listener: (item: Any) -> Unit) : AnyAdapter(items, listener) {
+class PendingTeacherAdapter(private val items: List<Any>, private val actionListener: (position: Int) -> Unit, private val listener: (position: Any) -> Unit) : AnyAdapter(items, listener) {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         super.onBindViewHolder(holder, position)
         val teacher = items[position] as Teacher
@@ -18,8 +18,9 @@ class PendingTeacherAdapter(private val items: List<Any>, private val listener: 
                 this.visibility = View.VISIBLE
                 this.setImageResource(R.drawable.ic_account_plus)
                 (this.layoutParams as RelativeLayout.LayoutParams).addRule(RelativeLayout.ALIGN_PARENT_END)
-                this.setOnClickListener { listener.invoke(teacher) }
+                this.setOnClickListener { actionListener.invoke(position) }
             }
+            this.setOnClickListener { listener.invoke(position) }
         }
     }
 }

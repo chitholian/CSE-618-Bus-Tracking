@@ -5,15 +5,14 @@ import android.view.View
 import friendroid.bustracking.R
 import friendroid.bustracking.activities.BaseActivity
 import friendroid.bustracking.adapters.PendingBusAdapter
+import friendroid.bustracking.confirm
 import friendroid.bustracking.entities.Bus
-import friendroid.bustracking.utils.confirm
 import kotlinx.android.synthetic.main.fragment_list_holder.*
 
 
 open class PendingBusesFragment : ListFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        title = getString(R.string.pending_buses)
 
         val buses = ArrayList<Bus>()
         for (i in 1..5)
@@ -40,5 +39,14 @@ open class PendingBusesFragment : ListFragment() {
                 progressBar.visibility = View.INVISIBLE
             }
         })
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setAdapter()
+    }
+
+    override fun setTitle() {
+        // Do not set title.
     }
 }

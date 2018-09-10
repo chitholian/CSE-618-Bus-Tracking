@@ -9,10 +9,10 @@ import android.support.v4.app.NotificationManagerCompat
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import friendroid.bustracking.CHANEL_ID
+import friendroid.bustracking.EXTRA_NOTIFICATION_ID
 import friendroid.bustracking.R
 import friendroid.bustracking.receivers.NotificationActionReceiver
-import friendroid.bustracking.utils.CHANEL_ID
-import friendroid.bustracking.utils.EXTRA_NOTIFICATION_ID
 import kotlinx.android.synthetic.main.activity_bus_driver.*
 import kotlinx.android.synthetic.main.activity_home.*
 

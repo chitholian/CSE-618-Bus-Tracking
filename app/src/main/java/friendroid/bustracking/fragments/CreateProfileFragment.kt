@@ -16,9 +16,9 @@ import friendroid.bustracking.R
 import friendroid.bustracking.activities.BaseActivity
 import friendroid.bustracking.activities.BusDriverActivity
 import friendroid.bustracking.activities.RegistrationActivity
-import friendroid.bustracking.utils.alert
-import friendroid.bustracking.utils.cDatabaseRef
-import friendroid.bustracking.utils.cUser
+import friendroid.bustracking.alert
+import friendroid.bustracking.cDatabaseRef
+import friendroid.bustracking.cUser
 import kotlinx.android.synthetic.main.fragment_crteate_profile.*
 
 

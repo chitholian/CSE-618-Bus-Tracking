@@ -65,11 +65,10 @@
             android:name=".activities.TeacherDetailsActivity"
             android:label="@string/subscribed_buses"
             android:theme="@style/BaseTheme" />
-        <activity android:name=".activities.PendingRequestActivity" />
 
         <receiver android:name=".receivers.NotificationActionReceiver" />
 
-        <activity android:name=".activities.LoginActivity"></activity>
+        <activity android:name=".activities.LoginActivity" />
     </application>
 
 </manifest>

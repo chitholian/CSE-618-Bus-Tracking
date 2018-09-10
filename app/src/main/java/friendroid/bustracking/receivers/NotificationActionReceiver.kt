@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.support.v4.app.NotificationManagerCompat
-import friendroid.bustracking.utils.EXTRA_NOTIFICATION_ID
+import friendroid.bustracking.EXTRA_NOTIFICATION_ID
 
 class NotificationActionReceiver : BroadcastReceiver() {
 

@@ -22,7 +22,7 @@ open class ListFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_list_holder, container, false)
         view.findViewById<RecyclerView>(R.id.itemList).apply {
             layoutManager = LinearLayoutManager(activity)
-            adapter = mAdapter
+            setAdapter()
         }
         view.findViewById<SwipeRefreshLayout>(R.id.refresh).setOnRefreshListener { doRefresh() }
         return view
@@ -38,6 +38,14 @@ open class ListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        setTitle()
+    }
+
+    fun setAdapter() {
+        view?.findViewById<RecyclerView>(R.id.itemList)?.adapter = mAdapter
+    }
+
+    protected open fun setTitle() {
         activity?.title = title
     }
 }

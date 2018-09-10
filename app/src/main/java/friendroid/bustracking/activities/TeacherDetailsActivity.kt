@@ -1,15 +1,15 @@
 package friendroid.bustracking.activities
 
+import android.app.Activity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import friendroid.bustracking.R
+import friendroid.bustracking.*
 import friendroid.bustracking.adapters.SelectableBusAdapter
 import friendroid.bustracking.entities.Bus
-import friendroid.bustracking.utils.confirm
 import kotlinx.android.synthetic.main.activity_teacher_details.*
 
 class TeacherDetailsActivity : BaseActivity() {
@@ -42,6 +42,9 @@ class TeacherDetailsActivity : BaseActivity() {
                     toast(R.string.operation_successful)
                     progressBar?.visibility = View.INVISIBLE
                     it.isEnabled = true
+                    setResult(Activity.RESULT_OK, intent.also {
+                        it.putExtra(EXTRA_RESULT, EXTRA_ACCEPTED)
+                    })
                 }
             }
         }
@@ -52,11 +55,29 @@ class TeacherDetailsActivity : BaseActivity() {
         return true
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        if (intent.action == ACTION_HANDLE_PENDING_REQUEST)
+            menu?.findItem(R.id.menu_reject)?.isVisible = true
+        return super.onPrepareOptionsMenu(menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.menu_delete -> confirm(this, R.string.confirm_delete) {
+            R.id.menu_delete -> confirm(this, R.string.confirm_delete_id) {
                 progressBar?.visibility = View.VISIBLE
                 delayed {
+                    setResult(Activity.RESULT_OK, intent.also {
+                        it.putExtra(EXTRA_RESULT, EXTRA_DELETED)
+                    })
+                    finish()
+                }
+            }
+            R.id.menu_reject -> confirm(this, R.string.confirm_reject) {
+                progressBar?.visibility = View.VISIBLE
+                delayed {
+                    setResult(Activity.RESULT_OK, intent.also {
+                        it.putExtra(EXTRA_RESULT, EXTRA_REJECTED)
+                    })
                     finish()
                 }
             }

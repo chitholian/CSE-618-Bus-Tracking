@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.firebase.ui.auth.AuthUI
 import friendroid.bustracking.R
-import friendroid.bustracking.utils.confirm
+import friendroid.bustracking.confirm
 
 abstract class BaseActivity : AppCompatActivity() {
     private var lastBackPressedAt = 0L

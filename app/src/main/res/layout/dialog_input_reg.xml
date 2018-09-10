@@ -1,13 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/reg_key_field"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/ti1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="@string/reg_key"
-        android:inputType="textPassword" />
+        android:layout_margin="@dimen/padding_small"
+        android:hint="@string/new_key">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/reg_key_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/cancel_button"
+        style="@style/Base.Widget.AppCompat.ActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/ti1"
+        android:layout_margin="@dimen/padding_small"
+        android:text="@string/cancel"
+        android:textColor="@color/colorAccent" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/ok_button"
+        style="@style/Base.Widget.AppCompat.ActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/ti1"
+        android:layout_margin="@dimen/padding_small"
+        android:text="@string/ok"
+        android:textColor="@color/colorAccent" />
+
+    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+        android:id="@+id/progressBar"
+        style="@style/FirebaseUI.TopProgressBar"
+        android:layout_below="@id/ok_button" />
 </RelativeLayout>

@@ -1,15 +1,21 @@
-package friendroid.bustracking.utils
+package friendroid.bustracking
 
 import android.content.Context
 import android.support.v7.app.AlertDialog
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import friendroid.bustracking.R
 
 const val SPLASH_TIME: Long = 1500 // milliseconds
 const val CHANEL_ID = "bm_channel"
 const val EXTRA_NOTIFICATION_ID = "notification_id"
+const val ACTION_HANDLE_PENDING_REQUEST = "friendroid.bustracking.ACTION_HANDLE_PENDING_REQUEST"
+const val EXTRA_TEACHER_ID = "teacher_id"
+const val EXTRA_RESULT = "result"
+const val EXTRA_DELETED = "deleted"
+const val EXTRA_REJECTED = "rejected"
+const val EXTRA_POSITION = "position"
+const val EXTRA_ACCEPTED = "accepted"
 
 var cUser: FirebaseUser? = null
 val cDatabaseRef: DatabaseReference = FirebaseDatabase.getInstance().reference

@@ -7,9 +7,9 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import friendroid.bustracking.CHANEL_ID
 import friendroid.bustracking.R
-import friendroid.bustracking.utils.CHANEL_ID
-import friendroid.bustracking.utils.SPLASH_TIME
+import friendroid.bustracking.SPLASH_TIME
 
 class SplashActivity : BaseActivity() {
 
