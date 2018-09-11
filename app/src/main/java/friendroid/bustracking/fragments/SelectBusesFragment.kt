@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import friendroid.bustracking.R
 import friendroid.bustracking.activities.BaseActivity
 import friendroid.bustracking.activities.HomeActivity
@@ -20,11 +21,14 @@ import friendroid.bustracking.entities.Bus
 import kotlinx.android.synthetic.main.fragment_select_buses.*
 
 class SelectBusesFragment : Fragment() {
-    private var v: View? = null
     private lateinit var mAdapter: SelectableBusAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        v = inflater.inflate(R.layout.fragment_select_buses, container, false)
+        return inflater.inflate(R.layout.fragment_select_buses, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val buses = ArrayList<Bus>()
         for (i in 1..10)
             Bus().also { b ->
@@ -34,12 +38,18 @@ class SelectBusesFragment : Fragment() {
                 buses.add(b)
             }
         mAdapter = SelectableBusAdapter(buses)
-        v?.findViewById<RecyclerView>(R.id.checkboxes)?.apply {
-            adapter = mAdapter
-            layoutManager = LinearLayoutManager(context)
+        progressBar?.visibility = View.VISIBLE
+        next_button?.isEnabled = false
+        (activity as BaseActivity).delayed {
+            view.findViewById<RecyclerView>(R.id.checkboxes)?.apply {
+                adapter = mAdapter
+                layoutManager = LinearLayoutManager(context)
+            }
+            progressBar?.visibility = View.INVISIBLE
+            next_button?.isEnabled = true
         }
 
-        v?.findViewById<Button>(R.id.next_button)?.setOnClickListener {
+        view.findViewById<Button>(R.id.next_button)?.setOnClickListener {
             it.isEnabled = false
             progressBar.visibility = View.VISIBLE
             (activity as BaseActivity).delayed {
@@ -61,11 +71,21 @@ class SelectBusesFragment : Fragment() {
                 it.isEnabled = true
             }
         }
-        return v
-    }
+        checkItemCount()
 
+    }
     override fun onResume() {
         super.onResume()
         activity?.title = getString(R.string.subscribed_buses)
+    }
+
+    private fun checkItemCount() {
+        if (mAdapter.itemCount == 0) {
+            view?.findViewById<RecyclerView>(R.id.checkboxes)?.visibility = View.GONE
+            view?.findViewById<TextView>(R.id.emptyView)?.visibility = View.VISIBLE
+        } else {
+            view?.findViewById<TextView>(R.id.emptyView)?.visibility = View.GONE
+            view?.findViewById<RecyclerView>(R.id.checkboxes)?.visibility = View.VISIBLE
+        }
     }
 }

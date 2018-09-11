@@ -2,7 +2,9 @@ package friendroid.bustracking.activities
 
 import android.os.Bundle
 import android.support.design.widget.NavigationView
+import android.view.Gravity
 import android.view.MenuItem
+import android.widget.TextView
 import friendroid.bustracking.R
 import friendroid.bustracking.fragments.AllBusesFragment
 import friendroid.bustracking.fragments.ChangeRegKeyFragment
@@ -16,7 +18,18 @@ class TransportControllerActivity : HomeActivity(), NavigationView.OnNavigationI
         super.onCreate(savedInstanceState)
         hideWaiting()
         nav_view.inflateMenu(R.menu.menu_transport_controller)
-        if (savedInstanceState == null) showOnlineBuses()
+        nav_view.menu.findItem(R.id.menu_pending_requests).actionView = TextView(this).also {
+            it.gravity = Gravity.CENTER
+            it.text = "38"
+        }
+        nav_view.menu.findItem(R.id.menu_online_buses).actionView = TextView(this).also {
+            it.gravity = Gravity.CENTER
+            it.text = "15"
+        }
+        if (savedInstanceState == null) {
+            showOnlineBuses()
+            nav_view.menu.findItem(R.id.menu_online_buses).isChecked = true
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

@@ -30,20 +30,22 @@ open class AllBusesFragment : ListFragment() {
         super.onViewCreated(view, savedInstanceState)
         progressBar?.visibility = View.VISIBLE
         (activity as BaseActivity).delayed {
-            mAdapter = SimpleBusAdapter(buses) { bus ->
-                confirm(activity, R.string.confirm_delete) {
-                    progressBar.visibility = View.VISIBLE
-                    (activity as BaseActivity).apply {
-                        delayed {
-                            buses.remove(bus)
-                            mAdapter?.notifyDataSetChanged()
-                            progressBar?.visibility = View.INVISIBLE
+            if (!isDetached) {
+                mAdapter = SimpleBusAdapter(buses) { bus ->
+                    confirm(activity, R.string.confirm_delete) {
+                        progressBar.visibility = View.VISIBLE
+                        (activity as BaseActivity).apply {
+                            delayed {
+                                buses.remove(bus)
+                                mAdapter?.notifyDataSetChanged()
+                                progressBar?.visibility = View.INVISIBLE
+                            }
                         }
                     }
                 }
+                setAdapter() // We have to call because it is changed delayed.
+                progressBar.visibility = View.INVISIBLE
             }
-            setAdapter() // We have to call because it is changed delayed.
-            progressBar.visibility = View.INVISIBLE
         }
     }
 }

@@ -71,5 +71,6 @@
     <string name="reject">Reject</string>
     <string name="confirm_reject">Confirm reject this request ?</string>
     <string name="confirm_delete_id">Are you sure to delete this account ?</string>
+    <string name="no_item">No Item</string>
 
 </resources>

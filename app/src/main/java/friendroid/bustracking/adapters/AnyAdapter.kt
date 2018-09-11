@@ -18,5 +18,6 @@ open class AnyAdapter(private val items: List<Any>, private val listener: (item:
         holder.view.setOnClickListener { listener.invoke(items[position]) }
     }
 
+
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 }

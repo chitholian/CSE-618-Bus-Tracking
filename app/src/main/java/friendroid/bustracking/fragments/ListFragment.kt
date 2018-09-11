@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import friendroid.bustracking.R
 import friendroid.bustracking.adapters.AnyAdapter
@@ -43,6 +44,23 @@ open class ListFragment : Fragment() {
 
     fun setAdapter() {
         view?.findViewById<RecyclerView>(R.id.itemList)?.adapter = mAdapter
+        mAdapter?.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+            override fun onChanged() {
+                super.onChanged()
+                checkItemCount()
+            }
+        })
+        checkItemCount()
+    }
+
+    private fun checkItemCount() {
+        if (mAdapter?.itemCount == 0) {
+            view?.findViewById<RecyclerView>(R.id.itemList)?.visibility = View.GONE
+            view?.findViewById<TextView>(R.id.emptyView)?.visibility = View.VISIBLE
+        } else {
+            view?.findViewById<TextView>(R.id.emptyView)?.visibility = View.GONE
+            view?.findViewById<RecyclerView>(R.id.itemList)?.visibility = View.VISIBLE
+        }
     }
 
     protected open fun setTitle() {

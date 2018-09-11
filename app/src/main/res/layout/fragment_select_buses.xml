@@ -21,6 +21,14 @@
         android:layout_below="@id/tv1"
         android:padding="10dp" />
 
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/emptyView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/no_item"
+        android:visibility="gone" />
+
     <me.zhanghai.android.materialprogressbar.MaterialProgressBar
         android:id="@+id/progressBar"
         style="@style/FirebaseUI.TopProgressBar"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group>
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/menu_online_buses"
             android:icon="@drawable/ic_google_maps"
@@ -18,13 +18,13 @@
             android:id="@+id/menu_pending_requests"
             android:icon="@drawable/ic_refresh"
             android:title="@string/pending_requests" />
-        <item
-            android:id="@+id/menu_change_reg_key"
-            android:icon="@drawable/ic_key_change"
-            android:title="@string/change_reg_key" />
     </group>
     <item android:title="@string/more_options">
         <menu>
+            <item
+                android:id="@+id/menu_change_reg_key"
+                android:icon="@drawable/ic_key_change"
+                android:title="@string/change_reg_key" />
             <item
                 android:id="@+id/menu_logout"
                 android:icon="@drawable/ic_logout"
