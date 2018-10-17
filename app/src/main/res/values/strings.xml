@@ -45,7 +45,9 @@
     <string name="wait_for_approval">Waiting for Approval</string>
     <string name="subscribed_buses">Subscribed Buses</string>
     <string name="take_pic_from">Take picture from</string>
-    <string name="about_app">About this app goes here</string>
+    <string name="about_app">
+
+    </string>
     <string name="key_changed">Key changed successfully!</string>
     <string name="processing">Processing…</string>
     <string name="delete_this_item">Delete this item</string>
@@ -72,5 +74,16 @@
     <string name="confirm_reject">Confirm reject this request ?</string>
     <string name="confirm_delete_id">Are you sure to delete this account ?</string>
     <string name="no_item">No Item</string>
+    <string name="user_deleted">Oops! It seems your ID is deleted.</string>
+    <string name="broadcast_failed">Oops! Could not send message</string>
+    <string name="offline">Offline</string>
+    <string name="broadcasting">Broadcasting Location</string>
+    <string name="sharing_location">My location is being sent to server.</string>
+    <string name="error_login">Oops! Something went wrong, check if you have Internet access and try again.</string>
+    <string name="turn_on_location">Failed to start service. Please turn on GPS and Internet connectivity and try again.</string>
+    <string name="settings_incompatible">Oops! It seems the configuration of your device is incompatible to access location for this app.</string>
+    <string name="turn_on_internet">Oops! Internet connection lost. Please activate internet connection and start the service again.</string>
+    <string name="service_stopped">Service Stopped</string>
+    <string name="service_started">Location Updater Service Started</string>
 
 </resources>

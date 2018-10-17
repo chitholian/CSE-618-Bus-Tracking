@@ -12,7 +12,6 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="8dp"
-        android:background="@drawable/round_bg"
         android:gravity="fill"
         android:src="@mipmap/ic_launcher_round" />
 

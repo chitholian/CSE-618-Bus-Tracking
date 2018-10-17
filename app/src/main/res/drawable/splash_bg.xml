@@ -3,5 +3,5 @@
     <item android:drawable="@android:color/white" />
     <item
         android:drawable="@drawable/splash_image"
-        android:gravity="fill" />
+        android:gravity="center" />
 </layer-list>

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
+import com.google.firebase.firestore.FirebaseFirestore
 import friendroid.bustracking.R
 import friendroid.bustracking.activities.BaseActivity
 import kotlinx.android.synthetic.main.dialog_input_reg.*
@@ -26,12 +27,15 @@ class ChangeRegKeyFragment : DialogFragment() {
             else {
                 it.isEnabled = false
                 progressBar?.visibility = View.VISIBLE
-                (activity as BaseActivity).apply {
-                    delayed {
-                        toast(R.string.key_changed)
-                        dialog?.dismiss()
-                    }
-                }
+                // update reg-key
+                FirebaseFirestore.getInstance().collection("settings").document("secrets")
+                        .update(mapOf("reg_key" to reg_key_field.text.toString())).addOnSuccessListener {
+                            //success
+                            dialog?.dismiss()
+                        }.addOnFailureListener {
+                            // failed !!
+                            dialog?.dismiss()
+                        }
             }
         }
     }

@@ -2,50 +2,36 @@ package friendroid.bustracking.fragments
 
 import android.os.Bundle
 import android.view.View
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import friendroid.bustracking.R
-import friendroid.bustracking.activities.BaseActivity
 import friendroid.bustracking.adapters.SimpleBusAdapter
 import friendroid.bustracking.confirm
-import friendroid.bustracking.entities.Bus
-import kotlinx.android.synthetic.main.fragment_list_holder.*
 
 
 open class AllBusesFragment : ListFragment() {
-    private lateinit var buses: ArrayList<Bus>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         title = getString(R.string.all_buses)
-
-        buses = ArrayList()
-        for (i in 1..10) {
-            val bus = Bus()
-            bus.uid = "uid_$i"
-            bus.name = "Bus Name $i"
-            bus.identity = "email_$i@gmail.com"
-            buses.add(bus)
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        progressBar?.visibility = View.VISIBLE
-        (activity as BaseActivity).delayed {
-            if (!isDetached) {
-                mAdapter = SimpleBusAdapter(buses) { bus ->
-                    confirm(activity, R.string.confirm_delete) {
-                        progressBar.visibility = View.VISIBLE
-                        (activity as BaseActivity).apply {
-                            delayed {
-                                buses.remove(bus)
-                                mAdapter?.notifyDataSetChanged()
-                                progressBar?.visibility = View.INVISIBLE
-                            }
-                        }
-                    }
-                }
-                setAdapter() // We have to call because it is changed delayed.
-                progressBar.visibility = View.INVISIBLE
+        setAdapter(SimpleBusAdapter(FirestoreRecyclerOptions.Builder<Any>().setQuery(FirebaseFirestore.getInstance()
+                .collection("users").whereEqualTo("role", "driver")
+                .whereEqualTo("approved", true), Any::class.java).build()) { bus ->
+            confirm(activity, R.string.confirm_delete) {
+                // delete this bus profile
+                FirebaseFirestore.getInstance().document("users/${bus["uid"]?.toString()
+                        ?: "NA"}").delete()/*.addOnSuccessListener {
+                    // success
+                }.addOnFailureListener {
+                    // failed !!
+                }*/
+                FirebaseDatabase.getInstance().getReference("status/${bus["uid"]?.toString()
+                        ?: "NA"}").removeValue()
             }
-        }
+        })
     }
 }

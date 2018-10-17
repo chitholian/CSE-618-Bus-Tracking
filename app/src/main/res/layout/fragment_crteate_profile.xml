@@ -109,8 +109,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:maxLength="100"
-                    android:text="reg_key_value" />
+                    android:maxLength="100" />
             </android.support.design.widget.TextInputLayout>
         </RelativeLayout>
     </ScrollView>

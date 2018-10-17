@@ -11,14 +11,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.firestore.FirebaseFirestore
 import de.hdodenhof.circleimageview.CircleImageView
-import friendroid.bustracking.R
-import friendroid.bustracking.activities.BaseActivity
+import friendroid.bustracking.*
 import friendroid.bustracking.activities.BusDriverActivity
 import friendroid.bustracking.activities.RegistrationActivity
-import friendroid.bustracking.alert
-import friendroid.bustracking.cDatabaseRef
-import friendroid.bustracking.cUser
 import kotlinx.android.synthetic.main.fragment_crteate_profile.*
 
 
@@ -28,50 +25,8 @@ class CreateProfileFragment : Fragment() {
     private val CODE_GALLERY = 123
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         v = inflater.inflate(R.layout.fragment_crteate_profile, container, false)
-        v?.findViewById<View>(R.id.next_button)?.setOnClickListener {
-            when {
-                name_field.text.trim().isEmpty() -> {
-                    name_field.error = getString(R.string.enter_valid_name)
-                    name_field.requestFocus()
-                }
-                reg_key.text.isEmpty() -> {
-                    reg_key.error = getString(R.string.enter_reg_key)
-                    reg_key.requestFocus()
-                }
 
-                else -> {
-                    it.isEnabled = false
-                    progressBar.visibility = View.VISIBLE
-                    (activity as BaseActivity).delayed {
-                        if (!isDetached) {
-                            if (teacher.isChecked) (activity as RegistrationActivity).showBusSelection()
-                            else {
-                                startActivity(Intent(activity, BusDriverActivity::class.java))
-                                activity?.finish()
-                            }
-                            progressBar.visibility = View.INVISIBLE
-                            it.isEnabled = true
-                        }
-                    }
-                    /*cDatabaseRef.child("reg_key").addListenerForSingleValueEvent(object : ValueEventListener {
-                        override fun onDataChange(p0: DataSnapshot) {
-                            if (reg_key.text.toString().equals(p0.value.toString())) {
-                                updateProfile()
-                            } else {
-                                reg_key.error = p0.value.toString() //getString(R.string.invalid_key)
-                                reg_key.requestFocus()
-                            }
-                        }
-
-                        override fun onCancelled(p0: DatabaseError) {
-                            alert(activity, p0.message)
-                        }
-                    })*/
-                }
-            }
-        }
         v?.findViewById<CircleImageView>(R.id.profile_pic)?.setOnClickListener {
             AlertDialog.Builder(activity).setTitle(R.string.take_pic_from).setItems(R.array.pic_options) { _, p ->
                 if (p == 0) {
@@ -103,29 +58,65 @@ class CreateProfileFragment : Fragment() {
     private fun updateProfile() {
         if (cUser!!.displayName.toString() != name_field.text.trim().toString())
             cUser!!.updateProfile(UserProfileChangeRequest.Builder().setDisplayName(name_field.text.toString()).build())
-                    .addOnCompleteListener { setRole() }
-        else setRole()
-    }
-
-    private fun setRole() {
-        when {
-            teacher.isChecked -> {
-                cDatabaseRef.child("users").child(cUser!!.uid).child("role").setValue("teacher")
-                        .addOnSuccessListener {
-                            (activity as RegistrationActivity).showBusSelection()
-                        }.addOnCanceledListener { alert(activity, R.string.op_failed) }
+                    .addOnCompleteListener { }
+        mUser.name = name_field.text.trim().toString()
+        mUser.uid = cUser!!.uid
+        if (cUser?.email != null) mUser.identity = contact.text.toString()
+        mUser.approved = false
+        if (teacher.isChecked) mUser.role = "teacher"
+        else if (bus_driver.isChecked) mUser.role = "driver"
+        FirebaseFirestore.getInstance().also { it.firestoreSettings = fireSettings }.collection("users").document(mUser.uid).set(mUser).addOnSuccessListener {
+            if (!isDetached) {
+                if (mUser.role == "teacher") (activity as RegistrationActivity).showBusSelection()
+                else {
+                    startActivity(Intent(activity, BusDriverActivity::class.java))
+                    activity?.finish()
+                }
             }
-            bus_driver.isChecked -> {
-                cDatabaseRef.child("users").child(cUser!!.uid).child("role").setValue("driver")
-                        .addOnSuccessListener {
-                            startActivity(Intent(activity, BusDriverActivity::class.java))
-                        }.addOnCanceledListener { alert(activity, R.string.op_failed) }
-            }
+        }.addOnFailureListener {
+            it.printStackTrace()
+            activity?.finish()
         }
     }
 
-    /*override fun onStart() {
+
+    override fun onStart() {
         super.onStart()
+        contact.text = cUser?.email
         name_field.setText(cUser!!.displayName.toString())
-    }*/
+        next_button.setOnClickListener {
+            when {
+                name_field.text.trim().isEmpty() -> {
+                    name_field.error = getString(R.string.enter_valid_name)
+                    name_field.requestFocus()
+                }
+                reg_key.text.isEmpty() -> {
+                    reg_key.error = getString(R.string.enter_reg_key)
+                    reg_key.requestFocus()
+                }
+
+                else -> {
+                    it.isEnabled = false
+                    progressBar.visibility = View.VISIBLE
+
+                    FirebaseFirestore.getInstance().collection("settings").document("secrets").get()
+                            .addOnSuccessListener { documentSnapshot ->
+                                if (reg_key.text.toString() == documentSnapshot["reg_key"].toString()) {
+                                    updateProfile()
+                                } else {
+                                    reg_key.error = getString(R.string.invalid_key)
+                                    reg_key.requestFocus()
+
+                                    it?.isEnabled = true
+                                    progressBar?.visibility = View.INVISIBLE
+                                }
+                            }.addOnFailureListener { ex ->
+                                if (!isDetached) alert(activity, "Oops! " + ex.message)
+                                it?.isEnabled = true
+                                progressBar?.visibility = View.INVISIBLE
+                            }
+                }
+            }
+        }
+    }
 }

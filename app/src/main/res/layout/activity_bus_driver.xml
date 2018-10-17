@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     tools:context=".activities.BusDriverActivity">
 
@@ -23,10 +23,10 @@
                 android:id="@+id/broadcast"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:checked="true"
+                android:layout_marginEnd="8dp"
+                android:checked="false"
                 android:text="@string/broadcast_my_location" />
 
             <android.support.design.widget.TextInputLayout
@@ -40,7 +40,8 @@
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/message_field"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:maxLength="160" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -49,12 +50,12 @@
                 style="@style/Base.Widget.AppCompat.Button.Colored"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
                 android:layout_below="@id/tl1"
-                android:layout_marginEnd="8dp"
+                android:layout_alignParentEnd="true"
                 android:layout_marginTop="8dp"
-                android:paddingEnd="@dimen/padding_large"
+                android:layout_marginEnd="8dp"
                 android:paddingStart="@dimen/padding_large"
+                android:paddingEnd="@dimen/padding_large"
                 android:text="@string/broadcast"
                 app:drawableEndCompat="@drawable/ic_cast" />
         </RelativeLayout>

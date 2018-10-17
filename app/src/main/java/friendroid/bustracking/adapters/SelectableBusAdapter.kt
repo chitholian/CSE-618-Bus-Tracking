@@ -6,25 +6,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import friendroid.bustracking.R
-import friendroid.bustracking.entities.Bus
+import friendroid.bustracking.mUser
+import friendroid.bustracking.models.Bus
 
-class SelectableBusAdapter(private val items: List<Bus>) : RecyclerView.Adapter<SelectableBusAdapter.ViewHolder>() {
-    private val selectedItems = HashSet<Bus>()
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-            ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.selectable_bus, parent, false)!!)
-
-    override fun getItemCount() = items.size
+class SelectableBusAdapter(private val buses: List<Bus>, private val uid: String = mUser.uid) : RecyclerView.Adapter<SelectableBusAdapter.ViewHolder>() {
+    override fun getItemCount(): Int {
+        return buses.size
+    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val bus = items[position]
         holder.v.findViewById<CheckBox>(R.id.checkbox).apply {
-            text = bus.name
-            this.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) selectedItems.add(bus)
-                else selectedItems.remove(bus)
-            }
+            text = buses[position].name
+            if (buses[position].subscribers.contains(uid))
+                isChecked = true
         }
     }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
+            ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.selectable_bus, parent, false)!!)
 
     class ViewHolder(val v: View) : RecyclerView.ViewHolder(v)
 }

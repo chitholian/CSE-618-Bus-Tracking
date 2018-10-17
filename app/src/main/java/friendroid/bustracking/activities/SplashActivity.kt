@@ -10,6 +10,7 @@ import android.os.Handler
 import friendroid.bustracking.CHANEL_ID
 import friendroid.bustracking.R
 import friendroid.bustracking.SPLASH_TIME
+import friendroid.bustracking.mUser
 
 class SplashActivity : BaseActivity() {
 
@@ -22,7 +23,15 @@ class SplashActivity : BaseActivity() {
                     NotificationChannel(CHANEL_ID, getString(R.string.chanel_name), NotificationManager.IMPORTANCE_HIGH)
             )
         Handler().postDelayed({
-            startActivity(Intent(this, LoginActivity::class.java))
+            // Check user
+            if (mUser.role.isNotEmpty()) {
+                when (mUser.role) {
+                    "admin" -> startActivity(Intent(baseContext, TransportControllerActivity::class.java))
+                    "teacher" -> startActivity(Intent(baseContext, TeacherActivity::class.java))
+                    "driver" -> startActivity(Intent(baseContext, BusDriverActivity::class.java))
+                    else -> startActivity(Intent(this, LoginActivity::class.java))
+                }
+            } else startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }, SPLASH_TIME)
     }

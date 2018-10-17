@@ -9,10 +9,13 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
+        android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
         android:icon="@mipmap/ic_launcher"
+        android:name=".BusTracking"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -44,7 +47,9 @@
         </activity>
         <activity android:name=".activities.RegistrationActivity" />
         <activity android:name=".activities.TeacherActivity" />
-        <activity android:name=".activities.BusDriverActivity" />
+        <activity
+            android:name=".activities.BusDriverActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".activities.TransportControllerActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -67,6 +72,16 @@
             android:theme="@style/BaseTheme" />
 
         <receiver android:name=".receivers.NotificationActionReceiver" />
+        <receiver android:exported="false"
+            android:name=".receivers.DeviceStateListener">
+            <!--<intent-filter>
+                <action android:name="android.location.PROVIDERS_CHANGED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>-->
+        </receiver>
+
+        <service android:name=".services.LocationUpdaterService" />
+        <service android:name=".services.LocationNameResolverService" />
 
         <activity android:name=".activities.LoginActivity" />
     </application>

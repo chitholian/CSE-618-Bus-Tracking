@@ -14,6 +14,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true 
     }
     buildTypes {
         release {
@@ -33,13 +34,12 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
     implementation 'com.google.firebase:firebase-core:16.0.3'
-    implementation 'com.google.firebase:firebase-auth:16.0.3'
-    implementation 'com.google.firebase:firebase-database:16.0.1'
-    implementation 'com.google.firebase:firebase-storage:16.0.1'
+    implementation 'com.google.firebase:firebase-database:15.0.1'
     implementation 'com.facebook.android:facebook-android-sdk:4.36.0'
     implementation 'com.firebaseui:firebase-ui-auth:4.1.0'
-    implementation 'me.zhanghai.android.materialprogressbar:library:1.4.2'
+    implementation 'com.firebaseui:firebase-ui-firestore:4.2.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
