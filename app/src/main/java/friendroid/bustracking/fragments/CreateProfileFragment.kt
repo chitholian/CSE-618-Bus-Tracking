@@ -69,7 +69,8 @@ class CreateProfileFragment : Fragment() {
             if (!isDetached) {
                 if (mUser.role == "teacher") (activity as RegistrationActivity).showBusSelection()
                 else {
-                    startActivity(Intent(activity, BusDriverActivity::class.java))
+                    startActivity(Intent(activity, BusDriverActivity::class.java)
+                            .apply { putExtra(EXTRA_FIRST_READ, true) })
                     activity?.finish()
                 }
             }

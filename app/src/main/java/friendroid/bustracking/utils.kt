@@ -17,6 +17,7 @@ const val ACTION_STOP_FOREGROUND = "friendroid.bustracking.ACTION_STOP_FOREGROUN
 
 const val EXTRA_TEACHER_ID = "teacher_id"
 const val EXTRA_BUS_ID = "bus_id"
+const val EXTRA_FIRST_READ = "first_read"
 
 var cUser: FirebaseUser? = null
 val fireSettings = FirebaseFirestoreSettings.Builder().setPersistenceEnabled(true)

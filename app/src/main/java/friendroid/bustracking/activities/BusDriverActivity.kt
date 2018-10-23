@@ -32,13 +32,11 @@ const val REQ_CODE_1 = 111
 const val REQ_CODE_2 = 222
 
 class BusDriverActivity : BaseActivity(), ServiceStateListener {
-    companion object {
-        var stoppedByUser = false
-    }
 
     // listen to user approval or deletion
     private lateinit var snapshotListener: EventListener<DocumentSnapshot>
     private lateinit var reference: DocumentReference
+    private var firstRead = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,16 +66,23 @@ class BusDriverActivity : BaseActivity(), ServiceStateListener {
                 }
             } else {
                 // User is deleted or something like that, so logout.
-                stopMyServices()
-                AuthUI.getInstance().signOut(this)
-                mUser = User()
-                toast(R.string.user_deleted)
-                finish()
+                // but ignore first time because it may be false at first read.
+                if (firstRead)
+                    firstRead = false
+                else {
+                    stopMyServices()
+                    AuthUI.getInstance().signOut(this)
+                    mUser = User()
+                    toast(R.string.user_deleted)
+                    finish()
+                }
             }
 
             // hide progressbar if it is showing
             if (progressBar?.visibility == View.VISIBLE) progressBar?.visibility = View.INVISIBLE
         }
+
+        firstRead = intent.getBooleanExtra(EXTRA_FIRST_READ, false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

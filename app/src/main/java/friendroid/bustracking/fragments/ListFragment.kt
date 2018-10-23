@@ -1,7 +1,6 @@
 package friendroid.bustracking.fragments
 
 import android.os.Bundle
-import android.os.Parcelable
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -58,6 +57,7 @@ open class ListFragment : Fragment() {
         }*/
         mAdapter?.registerAdapterDataObserver(observer)
         mAdapter?.startListening()
+        checkItemCount()
 /*
         Log.d("EEEE", "PT: ${pendingTeacherAdapter.itemCount}\n" +
                 "PB: ${pendingBusesAdapter.itemCount}\n" +
