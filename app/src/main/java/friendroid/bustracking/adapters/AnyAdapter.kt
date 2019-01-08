@@ -1,7 +1,6 @@
 package friendroid.bustracking.adapters
 
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,11 +16,6 @@ open class AnyAdapter(options: FirestoreRecyclerOptions<Any>, private val listen
     override fun onBindViewHolder(holder: ViewHolder, position: Int, model: Any) {
         holder.view.setOnClickListener { listener.invoke(getItem(position) as Map<*, *>) }
     }
-/*
-    override fun startListening() {
-        super.startListening()
-        Log.d("EEEE" ,"Listening....")
-    }*/
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 }

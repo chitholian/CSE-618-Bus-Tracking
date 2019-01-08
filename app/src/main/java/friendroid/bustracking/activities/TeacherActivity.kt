@@ -5,10 +5,7 @@ import android.support.design.widget.NavigationView
 import android.view.Gravity
 import android.view.MenuItem
 import android.widget.TextView
-import com.firebase.ui.auth.AuthUI
-import com.google.firebase.firestore.*
 import friendroid.bustracking.R
-import friendroid.bustracking.models.User
 import friendroid.bustracking.fragments.SelectBusesFragment
 import friendroid.bustracking.mUser
 import kotlinx.android.synthetic.main.activity_home.*
