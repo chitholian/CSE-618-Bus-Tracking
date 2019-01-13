@@ -22,3 +22,7 @@
 
 -keepattributes Signature
 -keepattributes *Annotation*
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
