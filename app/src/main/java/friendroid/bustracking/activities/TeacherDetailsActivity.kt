@@ -2,8 +2,8 @@ package friendroid.bustracking.activities
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -12,9 +12,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 import friendroid.bustracking.*
 import friendroid.bustracking.adapters.SelectableBusAdapter
 import friendroid.bustracking.models.Bus
-import kotlinx.android.synthetic.main.activity_teacher_details.*
 import java.util.*
 import kotlin.collections.ArrayList
+import android.widget.TextView
+import android.widget.ProgressBar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class TeacherDetailsActivity : BaseActivity() {
     private lateinit var mAdapter: SelectableBusAdapter
@@ -32,6 +34,11 @@ class TeacherDetailsActivity : BaseActivity() {
         else "users"
         buses = ArrayList<Bus>()
         // first, get pending teacher info
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
+        val saveFab = findViewById<FloatingActionButton>(R.id.saveFab)
+        val name = findViewById<TextView>(R.id.name)
+        val email = findViewById<TextView>(R.id.email)
+
         progressBar.visibility = View.VISIBLE
         saveFab.isEnabled = false
 
@@ -85,8 +92,10 @@ class TeacherDetailsActivity : BaseActivity() {
         return super.onPrepareOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
+        val saveFab = findViewById<FloatingActionButton>(R.id.saveFab)
+        when (item.itemId) {
             R.id.menu_delete -> confirm(this, R.string.confirm_delete_id) {
                 progressBar?.visibility = View.VISIBLE
                 saveFab?.isEnabled = false
@@ -135,6 +144,8 @@ class TeacherDetailsActivity : BaseActivity() {
         }
     }*/
     private fun approveTeacher(busIds: List<String>, teacherId: String) {
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
+        val saveFab = findViewById<FloatingActionButton>(R.id.saveFab)
         // Start approval operation
         val batch = FirebaseFirestore.getInstance().batch()
         // set user as approved
@@ -173,6 +184,9 @@ class TeacherDetailsActivity : BaseActivity() {
     }
 
     private fun makeTheList(busIds: ArrayList<*>? = null) {
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
+        val saveFab = findViewById<FloatingActionButton>(R.id.saveFab)
+        val checkboxes = findViewById<RecyclerView>(R.id.checkboxes)
         // Get bus list
         FirebaseFirestore.getInstance().collection("users").whereEqualTo("role", "driver")
                 .whereEqualTo("approved", true).get().addOnCompleteListener { task ->

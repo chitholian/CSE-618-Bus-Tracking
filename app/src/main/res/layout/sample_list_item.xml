@@ -15,7 +15,7 @@
         android:gravity="fill"
         android:src="@mipmap/ic_launcher_round" />
 
-    <android.support.v7.widget.AppCompatTextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textStyle="bold" />
 
-    <android.support.v7.widget.AppCompatTextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
         android:layout_toEndOf="@id/image"
         android:text="Secondary Text" />
 
-    <android.support.v7.widget.AppCompatImageButton
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/secondButton"
         style="@style/Base.Widget.AppCompat.ActionButton"
         android:layout_width="wrap_content"
@@ -43,11 +43,11 @@
         android:layout_toStartOf="@id/deleteButton"
         android:contentDescription="@string/accept"
         android:padding="10dp"
-        android:tint="@color/colorPrimary"
+        app:tint="@color/colorPrimary"
         android:visibility="gone"
         app:srcCompat="@drawable/ic_account_check" />
 
-    <android.support.v7.widget.AppCompatImageButton
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/deleteButton"
         style="@style/Base.Widget.AppCompat.ActionButton"
         android:layout_width="wrap_content"
@@ -56,7 +56,7 @@
         android:layout_centerInParent="true"
         android:contentDescription="@string/delete_this_item"
         android:padding="10dp"
-        android:tint="@color/colorDanger"
+        app:tint="@color/colorDanger"
         android:visibility="gone"
         app:srcCompat="@drawable/ic_delete" />
 

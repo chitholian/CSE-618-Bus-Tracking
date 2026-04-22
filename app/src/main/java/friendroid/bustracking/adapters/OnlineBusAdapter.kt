@@ -3,8 +3,8 @@ package friendroid.bustracking.adapters
 import android.app.PendingIntent
 import android.content.Intent
 import android.media.RingtoneManager
-import android.support.v4.app.NotificationCompat
-import android.support.v4.app.NotificationManagerCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import android.widget.TextView
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import friendroid.bustracking.CHANEL_ID
@@ -44,7 +44,7 @@ class OnlineBusAdapter(private val activity: HomeActivity, options: FirestoreRec
 //            System.out.println("Here are nid $nid")
             i.putExtra(EXTRA_NOTIFICATION_ID, nid)
             val builder = NotificationCompat.Builder(activity, CHANEL_ID)
-//                    .setContentIntent(PendingIntent.getBroadcast(activity, nid, i, 0))
+//                    .setContentIntent(PendingIntent.getBroadcast(activity, nid, i, PendingIntent.FLAG_IMMUTABLE))
                     .setSmallIcon(android.R.drawable.ic_dialog_email)
                     .setContentTitle(bus["name"]?.toString())
                     .setContentText(msg)
@@ -52,7 +52,7 @@ class OnlineBusAdapter(private val activity: HomeActivity, options: FirestoreRec
                     .setPriority(NotificationManagerCompat.IMPORTANCE_HIGH)
                     .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                     .addAction(android.R.drawable.ic_notification_clear_all, activity.getString(R.string.dismiss),
-                            PendingIntent.getBroadcast(activity, nid, i, 0))
+                            PendingIntent.getBroadcast(activity, nid, i, PendingIntent.FLAG_IMMUTABLE))
             if (time != null) {
                 builder.setShowWhen(true)
                 builder.setWhen(time.time)

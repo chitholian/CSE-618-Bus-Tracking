@@ -10,10 +10,12 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.location.LocationManager
+import android.app.NotificationManager
+import android.os.Build
 import android.os.IBinder
-import android.support.v4.app.ActivityCompat
-import android.support.v4.app.NotificationCompat
-import android.support.v4.app.NotificationManagerCompat
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import android.widget.Toast
 import com.firebase.ui.auth.AuthUI
 import com.google.android.gms.location.*
@@ -75,9 +77,8 @@ class LocationUpdaterService : Service() {
     override fun onCreate() {
         locationClient = LocationServices.getFusedLocationProviderClient(this)
         locationCallBack = object : LocationCallback() {
-            override fun onLocationResult(p0: LocationResult?) {
+            override fun onLocationResult(p0: LocationResult) {
                 super.onLocationResult(p0)
-                p0 ?: return
                 for (location in p0.locations) {
 //                    Toast.makeText(this@LocationUpdaterService, location.toString(), Toast.LENGTH_LONG).show()
                     // Upload the location using intent service
@@ -121,10 +122,15 @@ class LocationUpdaterService : Service() {
         reference.addSnapshotListener(snapshotListener)
         presenceRef.setValue("online")
         presenceRef.onDisconnect().setValue("offline")
+        val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        } else {
+            PendingIntent.FLAG_UPDATE_CURRENT
+        }
         val targetIntent = PendingIntent.getActivity(this, 0, Intent(this, BusDriverActivity::class.java).also {
             it.action = ACTION_MAIN
             it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }, 0)
+        }, flags)
 
         // Build a notification
         val notification = NotificationCompat.Builder(this, CHANEL_ID)
@@ -133,14 +139,12 @@ class LocationUpdaterService : Service() {
                 .setContentTitle(getString(R.string.broadcasting))
                 .setContentText(getString(R.string.sharing_location))
                 .setContentIntent(targetIntent)
-        val locationRequest = LocationRequest().apply {
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-            interval = 7000
-            fastestInterval = 5000
-            smallestDisplacement = 10f
-        }
+        val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 7000)
+            .setMinUpdateIntervalMillis(5000)
+            .setMinUpdateDistanceMeters(10f)
+            .build()
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            val settingClient = LocationSettingsRequest.Builder().addAllLocationRequests(listOf(locationRequest))
+            val settingClient = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
             // Check settings
             LocationServices.getSettingsClient(this).checkLocationSettings(settingClient.build())
                     .addOnSuccessListener {

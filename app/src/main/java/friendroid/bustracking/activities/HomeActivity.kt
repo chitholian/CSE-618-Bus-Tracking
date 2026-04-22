@@ -4,14 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.support.design.widget.NavigationView
-import android.support.v4.view.GravityCompat
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.widget.AppCompatTextView
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.navigation.NavigationView
+import androidx.core.view.GravityCompat
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import androidx.drawerlayout.widget.DrawerLayout
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.*
@@ -20,7 +21,6 @@ import friendroid.bustracking.R
 import friendroid.bustracking.adapters.OnlineBusAdapter
 import friendroid.bustracking.fragments.OnlineBusesFragment
 import friendroid.bustracking.models.User
-import kotlinx.android.synthetic.main.activity_home.*
 
 abstract class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var onlineBusesFragment: OnlineBusesFragment
@@ -37,7 +37,11 @@ abstract class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        val drawer_layout = findViewById<DrawerLayout>(R.id.drawer_layout)
+        val nav_view = findViewById<NavigationView>(R.id.nav_view)
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -117,6 +121,7 @@ abstract class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSel
                 } else if (user?.role != "admin") {
                     displayWaiting()
                 }
+                val nav_view = findViewById<NavigationView>(R.id.nav_view)
                 nav_view.getHeaderView(0).findViewById<AppCompatTextView>(R.id.profileName)?.text = user?.name
                 nav_view.getHeaderView(0).findViewById<AppCompatTextView>(R.id.identityText)?.text = user?.identity
             } else {
@@ -130,6 +135,7 @@ abstract class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSel
     }
 
     override fun onBackPressed() {
+        val drawer_layout = findViewById<DrawerLayout>(R.id.drawer_layout)
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
@@ -146,18 +152,19 @@ abstract class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSel
             }
         }
 
+        val drawer_layout = findViewById<DrawerLayout>(R.id.drawer_layout)
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
 
     protected fun hideWaiting() {
-        waiting.visibility = View.GONE
-        fragment_container.visibility = View.VISIBLE
+        findViewById<View>(R.id.waiting).visibility = View.GONE
+        findViewById<View>(R.id.fragment_container).visibility = View.VISIBLE
     }
 
     protected fun displayWaiting() {
-        waiting.visibility = View.VISIBLE
-        fragment_container.visibility = View.GONE
+        findViewById<View>(R.id.waiting).visibility = View.VISIBLE
+        findViewById<View>(R.id.fragment_container).visibility = View.GONE
     }
 
     open fun showOnlineBuses() {
@@ -166,6 +173,7 @@ abstract class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSel
 
     open fun setMenuBadges() {
         val count = onlineBusAdapter.itemCount
+        val nav_view = findViewById<NavigationView>(R.id.nav_view)
         (nav_view.menu.findItem(R.id.menu_online_buses).actionView as TextView).text = if (count == 0) "" else count.toString()
     }
 

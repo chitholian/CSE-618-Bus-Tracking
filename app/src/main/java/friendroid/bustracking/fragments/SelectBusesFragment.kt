@@ -2,15 +2,17 @@ package friendroid.bustracking.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
+import android.widget.ProgressBar
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.firestore.FirebaseFirestore
 import friendroid.bustracking.R
 import friendroid.bustracking.activities.*
@@ -18,12 +20,13 @@ import friendroid.bustracking.adapters.SelectableBusAdapter
 import friendroid.bustracking.models.Bus
 import friendroid.bustracking.fireSettings
 import friendroid.bustracking.mUser
-import kotlinx.android.synthetic.main.fragment_select_buses.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 class SelectBusesFragment : Fragment() {
     private lateinit var mAdapter: SelectableBusAdapter
+    private var progressBar: ProgressBar? = null
+    private var next_button: MaterialButton? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_select_buses, container, false)
@@ -31,6 +34,9 @@ class SelectBusesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        progressBar = view.findViewById(R.id.progressBar)
+        next_button = view.findViewById(R.id.next_button)
 
         // show progressbar
         progressBar?.visibility = View.VISIBLE
@@ -61,9 +67,9 @@ class SelectBusesFragment : Fragment() {
                     checkItemCount()
                 }
 
-        view.findViewById<Button>(R.id.next_button)?.setOnClickListener {
+        next_button?.setOnClickListener {
             it.isEnabled = false
-            progressBar.visibility = View.VISIBLE
+            progressBar?.visibility = View.VISIBLE
 
             // find selected items;
             val items = TreeSet<String>() // to keep uid only
@@ -86,7 +92,7 @@ class SelectBusesFragment : Fragment() {
                 // failed!!
                 err.printStackTrace()
                 it.isEnabled = true
-                progressBar.visibility = View.INVISIBLE
+                progressBar?.visibility = View.INVISIBLE
 //                activity?.finish()
             }
         }
@@ -111,7 +117,7 @@ class SelectBusesFragment : Fragment() {
     private fun onComplete() {
         if (!isDetached) {
             progressBar?.visibility = View.INVISIBLE
-            next_button.isEnabled = true
+            next_button?.isEnabled = true
             if (activity is TeacherActivity) {
                 (activity as TeacherActivity).showOnlineBuses()
             } else startActivity(Intent(activity, TeacherActivity::class.java)).also {

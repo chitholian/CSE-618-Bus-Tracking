@@ -5,10 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.media.RingtoneManager
+import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.NotificationCompat
-import android.support.v4.app.NotificationManagerCompat
-import android.support.v7.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.appcompat.app.AppCompatActivity
+import android.widget.TextView
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
 import com.google.firebase.firestore.*
@@ -16,7 +18,6 @@ import com.google.firebase.firestore.EventListener
 import friendroid.bustracking.*
 import friendroid.bustracking.R
 import friendroid.bustracking.receivers.NotificationActionReceiver
-import kotlinx.android.synthetic.main.activity_maps.*
 import java.util.*
 import kotlin.math.abs
 
@@ -105,6 +106,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             val nid = abs(((bus["uid"]?.hashCode()?.dec() ?: 1) % 100) + 1)
 //            System.out.println("Here are nid $nid")
             i.putExtra(EXTRA_NOTIFICATION_ID, nid)
+            val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            } else {
+                PendingIntent.FLAG_UPDATE_CURRENT
+            }
             val builder = NotificationCompat.Builder(this, CHANEL_ID)
 //                    .setContentIntent(PendingIntent.getBroadcast(activity, nid, i, 0))
                     .setSmallIcon(android.R.drawable.ic_dialog_email)
@@ -114,7 +120,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     .setPriority(NotificationManagerCompat.IMPORTANCE_HIGH)
                     .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                     .addAction(android.R.drawable.ic_notification_clear_all, getString(R.string.dismiss),
-                            PendingIntent.getBroadcast(this, nid, i, 0))
+                            PendingIntent.getBroadcast(this, nid, i, flags))
             if (time != null) {
                 builder.setShowWhen(true)
                 builder.setWhen(time.time)
@@ -138,14 +144,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
         marker = mMap.addMarker(MarkerOptions().position(transportOffice)
 //                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker))
-        )
+        )!!
 
         mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
         mMap.moveCamera(CameraUpdateFactory.zoomTo(16f))
     }
 
     private fun updateLocation(loc: Any?, latLng: LatLng?, name: String = "Unknown") {
-
+        val locationText = findViewById<TextView>(R.id.locationText)
         if (loc == null || loc == "offline") {
             // set offline
             locationText.text = "$name : ${getString(R.string.offline)}"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.AppCompatTextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,14 +14,14 @@
         android:text="@string/select_buses_to_subscribe"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/checkboxes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/tv1"
         android:padding="10dp" />
 
-    <android.support.v7.widget.AppCompatTextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/emptyView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,9 +34,9 @@
         style="@style/FirebaseUI.TopProgressBar"
         android:layout_alignParentBottom="true" />
 
-    <com.firebase.ui.auth.util.ui.SupportVectorDrawablesButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/next_button"
-        style="@style/Base.Widget.AppCompat.Button.Colored"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -46,5 +46,6 @@
         android:paddingEnd="@dimen/padding_medium"
         android:paddingStart="@dimen/padding_medium"
         android:text="@string/next"
-        app:drawableEndCompat="@drawable/ic_next" />
+        app:icon="@drawable/ic_next"
+        app:iconGravity="end" />
 </RelativeLayout>

@@ -3,21 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ti1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_small"
         android:hint="@string/new_key">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/reg_key_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword" />
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <android.support.v7.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/cancel_button"
         style="@style/Base.Widget.AppCompat.ActionButton"
         android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
         android:text="@string/cancel"
         android:textColor="@color/colorAccent" />
 
-    <android.support.v7.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/ok_button"
         style="@style/Base.Widget.AppCompat.ActionButton"
         android:layout_width="wrap_content"

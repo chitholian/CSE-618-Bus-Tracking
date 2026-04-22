@@ -6,14 +6,17 @@ import android.app.Service
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
-import android.support.v7.widget.SwitchCompat
+import android.os.Build
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.appcompat.widget.SwitchCompat
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.firebase.ui.auth.AuthUI
 import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.Priority
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
@@ -23,8 +26,10 @@ import friendroid.bustracking.R
 import friendroid.bustracking.models.OnlineBus
 import friendroid.bustracking.models.User
 import friendroid.bustracking.services.LocationUpdaterService
-import kotlinx.android.synthetic.main.activity_bus_driver.*
-import kotlinx.android.synthetic.main.activity_home.*
+import android.widget.ProgressBar
+import android.widget.EditText
+import android.widget.Button
+import android.view.ViewGroup
 import java.lang.Exception
 
 // Permission request code
@@ -41,9 +46,14 @@ class BusDriverActivity : BaseActivity(), ServiceStateListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
+        val fragment_container = findViewById<ViewGroup>(R.id.fragment_container)
         fragment_container.addView(View.inflate(this, R.layout.activity_bus_driver, null))
         reference = FirebaseFirestore.getInstance().document("users/${mUser.uid}")
+
+        val waiting = findViewById<View>(R.id.waiting)
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
 
         // create snapshot lister
         snapshotListener = EventListener<DocumentSnapshot> { snapshot, err ->
@@ -111,6 +121,11 @@ class BusDriverActivity : BaseActivity(), ServiceStateListener {
 
     override fun onStart() {
         super.onStart()
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
+        val button_broadcast_msg = findViewById<Button>(R.id.button_broadcast_msg)
+        val message_field = findViewById<EditText>(R.id.message_field)
+        val broadcast = findViewById<SwitchCompat>(R.id.broadcast)
+
         // show progressbar for loading user status
         progressBar.visibility = View.VISIBLE
         // Monitor if this user is approved
@@ -143,9 +158,18 @@ class BusDriverActivity : BaseActivity(), ServiceStateListener {
         broadcast.setOnClickListener {
             if ((it as SwitchCompat).isChecked) {
                 // Check permission
-                if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                val permissions = mutableListOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    permissions.add(Manifest.permission.POST_NOTIFICATIONS)
+                }
+                
+                val missingPermissions = permissions.filter { perm ->
+                    ContextCompat.checkSelfPermission(this, perm) != PackageManager.PERMISSION_GRANTED
+                }
+
+                if (missingPermissions.isNotEmpty()) {
                     it.isChecked = false
-                    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQ_CODE_1)
+                    ActivityCompat.requestPermissions(this, missingPermissions.toTypedArray(), REQ_CODE_1)
                 } else
                 // start broadcasting location
                     startMyServices()
@@ -157,15 +181,11 @@ class BusDriverActivity : BaseActivity(), ServiceStateListener {
     }
 
     private fun startMyServices() {
-
-
-        val locationRequest = LocationRequest().apply {
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-            interval = 7000
-            fastestInterval = 5000
-            smallestDisplacement = 10f
-        }
-        val settingClient = LocationSettingsRequest.Builder().addAllLocationRequests(listOf(locationRequest))
+        val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 7000)
+            .setMinUpdateIntervalMillis(5000)
+            .setMinUpdateDistanceMeters(10f)
+            .build()
+        val settingClient = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
         // Check settings
         LocationServices.getSettingsClient(this).checkLocationSettings(settingClient.build())
                 .addOnFailureListener {
@@ -196,12 +216,12 @@ class BusDriverActivity : BaseActivity(), ServiceStateListener {
         val intent = Intent(this, LocationUpdaterService::class.java)
         intent.action = ACTION_STOP_FOREGROUND
         startService(intent)
-        broadcast.isChecked = false
+        findViewById<SwitchCompat>(R.id.broadcast).isChecked = false
     }
 
     override fun onResume() {
         super.onResume()
-        broadcast.isChecked = LocationUpdaterService.isServiceRunning
+        findViewById<SwitchCompat>(R.id.broadcast).isChecked = LocationUpdaterService.isServiceRunning
         title = mUser.name
         LocationUpdaterService.startStopListener.add(this)
     }
@@ -213,11 +233,14 @@ class BusDriverActivity : BaseActivity(), ServiceStateListener {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQ_CODE_1 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            // Now we can start service
-            startMyServices()
-        } else {
-
+        if (requestCode == REQ_CODE_1) {
+            val locationGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+            if (locationGranted) {
+                // Now we can start service
+                startMyServices()
+            } else {
+                toast(R.string.turn_on_location)
+            }
         }
     }
 
@@ -233,12 +256,12 @@ class BusDriverActivity : BaseActivity(), ServiceStateListener {
 
     override fun onStartService(service: Service) {
         super.onStartService(service)
-        broadcast?.isChecked = true
+        findViewById<SwitchCompat>(R.id.broadcast)?.isChecked = true
 
     }
 
     override fun onStopService(service: Service) {
         super.onStopService(service)
-        broadcast?.isChecked = false
+        findViewById<SwitchCompat>(R.id.broadcast)?.isChecked = false
     }
 }

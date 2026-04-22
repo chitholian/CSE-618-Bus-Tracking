@@ -61,7 +61,8 @@
     <string name="title_activity_pending_request">Pending Requests</string>
     <string name="pending_buses">Pending Buses</string>
     <string name="pending_teachers">Pending Teachers</string>
-    <string name="chanel_name">Broadcast Message Notification</string>
+    <string name="channel_name">Broadcast Message Notification</string>
+    <string name="channel_description">Notifications for bus location broadcasts and messages</string>
     <string name="dismiss">Dismiss</string>
     <string name="login_failed">Failed to login</string>
     <string name="retry">Retry</string>

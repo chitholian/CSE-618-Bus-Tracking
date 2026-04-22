@@ -6,8 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.location.LocationManager
 import android.net.ConnectivityManager
-import android.support.v4.app.NotificationCompat
-import android.support.v4.app.NotificationManagerCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import android.widget.Toast
 import friendroid.bustracking.*
 import friendroid.bustracking.activities.BusDriverActivity

@@ -2,8 +2,8 @@ package friendroid.bustracking.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.NavigationView
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.navigation.NavigationView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.Gravity
 import android.view.MenuItem
 import android.widget.TextView
@@ -17,7 +17,6 @@ import friendroid.bustracking.adapters.PendingTeacherAdapter
 import friendroid.bustracking.adapters.SimpleBusAdapter
 import friendroid.bustracking.fireSettings
 import friendroid.bustracking.fragments.*
-import kotlinx.android.synthetic.main.activity_home.*
 
 class TransportControllerActivity : HomeActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -34,6 +33,7 @@ class TransportControllerActivity : HomeActivity(), NavigationView.OnNavigationI
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         hideWaiting()
+        val nav_view = findViewById<NavigationView>(R.id.nav_view)
         nav_view.inflateMenu(R.menu.menu_transport_controller)
         nav_view.menu.findItem(R.id.menu_pending_requests).actionView = TextView(this).also {
             it.gravity = Gravity.CENTER
@@ -104,6 +104,7 @@ class TransportControllerActivity : HomeActivity(), NavigationView.OnNavigationI
     override fun setMenuBadges() {
         super.setMenuBadges()
         val count = pendingBusesAdapter.itemCount + pendingTeacherAdapter.itemCount
+        val nav_view = findViewById<NavigationView>(R.id.nav_view)
         (nav_view.menu.findItem(R.id.menu_pending_requests).actionView as TextView).text = if (count == 0) "" else count.toString()
     }
 

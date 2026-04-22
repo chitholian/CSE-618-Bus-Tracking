@@ -20,7 +20,7 @@ class SplashActivity : BaseActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
         // create a notification chanel
             (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(
-                    NotificationChannel(CHANEL_ID, getString(R.string.chanel_name), NotificationManager.IMPORTANCE_HIGH)
+                    NotificationChannel(CHANEL_ID, getString(R.string.channel_name), NotificationManager.IMPORTANCE_HIGH)
             )
         Handler().postDelayed({
             // Check user

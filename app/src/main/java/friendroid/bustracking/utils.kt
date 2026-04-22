@@ -1,7 +1,7 @@
 package friendroid.bustracking
 
 import android.content.Context
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import friendroid.bustracking.models.User

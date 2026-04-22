@@ -1,14 +1,13 @@
 package friendroid.bustracking.activities
 
 import android.os.Bundle
-import android.support.design.widget.NavigationView
+import com.google.android.material.navigation.NavigationView
 import android.view.Gravity
 import android.view.MenuItem
 import android.widget.TextView
 import friendroid.bustracking.R
 import friendroid.bustracking.fragments.SelectBusesFragment
 import friendroid.bustracking.mUser
-import kotlinx.android.synthetic.main.activity_home.*
 
 class TeacherActivity : HomeActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -16,6 +15,7 @@ class TeacherActivity : HomeActivity(), NavigationView.OnNavigationItemSelectedL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val nav_view = findViewById<NavigationView>(R.id.nav_view)
         nav_view.inflateMenu(R.menu.menu_teacher)
         nav_view.menu.findItem(R.id.menu_online_buses).actionView = TextView(this).also {
             it.gravity = Gravity.CENTER

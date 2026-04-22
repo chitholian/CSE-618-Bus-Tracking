@@ -2,16 +2,17 @@ package friendroid.bustracking.fragments
 
 import android.app.Dialog
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
+import androidx.fragment.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
+import android.widget.EditText
+import android.widget.ProgressBar
 import com.google.firebase.firestore.FirebaseFirestore
 import friendroid.bustracking.R
 import friendroid.bustracking.activities.BaseActivity
-import kotlinx.android.synthetic.main.dialog_input_reg.*
 
 class ChangeRegKeyFragment : DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -19,6 +20,8 @@ class ChangeRegKeyFragment : DialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val reg_key_field = view.findViewById<EditText>(R.id.reg_key_field)
+        val progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
         view.findViewById<Button>(R.id.cancel_button)?.setOnClickListener {
             dismiss()
         }

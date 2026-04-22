@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -36,7 +36,7 @@
                         app:civ_border_color="@color/colorPrimaryDark"
                         app:civ_border_width="@dimen/profile_pic_border_width" />
 
-                    <android.support.v7.widget.AppCompatTextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/contact"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -45,9 +45,9 @@
                         android:textColor="@android:color/white" />
 
                 </LinearLayout>
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/ti1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,16 +55,16 @@
                 android:layout_margin="@dimen/padding_small"
                 android:hint="Full Profile Name">
 
-                <android.support.design.widget.TextInputEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/name_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:maxLength="32"
                     android:text="Full Profile Name" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
                 android:layout_below="@id/tv1"
                 android:layout_marginStart="8dp">
 
-                <android.support.v7.widget.AppCompatRadioButton
+                <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/teacher"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
                     android:checked="true"
                     android:text="@string/teacher" />
 
-                <android.support.v7.widget.AppCompatRadioButton
+                <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/bus_driver"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -97,20 +97,20 @@
                     android:text="@string/bus_driver" />
             </RadioGroup>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/rg1"
                 android:layout_margin="@dimen/padding_small"
                 android:hint="@string/reg_key">
 
-                <android.support.design.widget.TextInputEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/reg_key"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
                     android:maxLength="100" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
         </RelativeLayout>
     </ScrollView>
 
@@ -119,9 +119,9 @@
         style="@style/FirebaseUI.TopProgressBar"
         android:layout_alignParentBottom="true" />
 
-    <com.firebase.ui.auth.util.ui.SupportVectorDrawablesButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/next_button"
-        style="@style/Base.Widget.AppCompat.Button.Colored"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -131,5 +131,6 @@
         android:paddingEnd="@dimen/padding_medium"
         android:paddingStart="@dimen/padding_medium"
         android:text="@string/next"
-        app:drawableEndCompat="@drawable/ic_next" />
+        app:icon="@drawable/ic_next"
+        app:iconGravity="end" />
 </RelativeLayout>
