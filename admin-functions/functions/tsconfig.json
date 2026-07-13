@@ -6,7 +6,9 @@
     "outDir": "lib",
     "sourceMap": true,
     "strict": true,
-    "target": "es2015"
+    "target": "es2020",
+    "skipLibCheck": true,
+    "moduleResolution": "node"
   },
   "compileOnSave": true,
   "include": [
